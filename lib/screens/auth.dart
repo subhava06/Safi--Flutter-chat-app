@@ -10,14 +10,23 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final _form = GlobalKey<FormState>();
 
   var _isLogin = true; // to toggle b/w login and signup
+  var _enteredEmail = '';
+  var _enteredPassword = '';
+
 
    void _submit ()  // will be triggered whenever the elevated button is pressed
    {
      //trigger validators and ensure that inputs are saved
+    final isValid = _form.currentState!.validate(); // will be set not null
 
+     if(isValid) {
+       _form.currentState!.save();
+       print(_enteredEmail);
+       print(_enteredPassword);
+     }
    }
 
   @override
@@ -47,7 +56,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Padding(
                       padding: const EdgeInsets.all(16),
                     child: Form(
-                      key: _formKey,
+                      key: _form,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -66,6 +75,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                 }
                                 return null;
                               },
+                              onSaved: (value) {
+                                _enteredEmail = value!;
+                              },
+
                             ),
                             TextFormField(
                               decoration: InputDecoration(
@@ -77,6 +90,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                   return 'Password must be at least 6 characters long.';
                                 }
                                 return null;
+                              },
+                              onSaved: (value) {
+                                _enteredPassword = value!;
                               },
                             ),
                             SizedBox(
