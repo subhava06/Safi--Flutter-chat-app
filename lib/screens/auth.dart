@@ -10,9 +10,15 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   var _isLogin = true; // to toggle b/w login and signup
 
+   void _submit ()  // will be triggered whenever the elevated button is pressed
+   {
+     //trigger validators and ensure that inputs are saved
 
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +47,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Padding(
                       padding: const EdgeInsets.all(16),
                     child: Form(
+                      key: _formKey,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -65,6 +72,12 @@ class _AuthScreenState extends State<AuthScreen> {
                                 labelText: 'Password',
                               ),
                               obscureText: true,
+                              validator: (value){
+                                if(value == null || value.trim().length < 6){
+                                  return 'Password must be at least 6 characters long.';
+                                }
+                                return null;
+                              },
                             ),
                             SizedBox(
                               height: 12,
@@ -74,9 +87,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                style: ElevatedButton.styleFrom(
                                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                                ),
-                               onPressed: () {
-
-                               },
+                               onPressed: _submit,
                                child:  Text(_isLogin ? 'Login' : 'Signup'),
 
                              ),
