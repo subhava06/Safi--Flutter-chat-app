@@ -10,6 +10,10 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  var _isLogin = true; // to toggle b/w login and signup
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +62,17 @@ class _AuthScreenState extends State<AuthScreen> {
                               height: 12,
                             ),
 
+                             ElevatedButton(
+                               onPressed: () {},
+                               child: const Text('Signup'),
+                             ),
+                              
+                              TextButton(
+                                  onPressed: () {
+                                    //for switching modes we need setstate
+                                  },
+                                  child: Text(_isLogin? 'Create an account' : 'I already have an account'),
+                              ),
                           ],
                         ),
                     ),
