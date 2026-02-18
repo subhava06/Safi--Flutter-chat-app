@@ -51,6 +51,14 @@ class _AuthScreenState extends State<AuthScreen> {
                               keyboardType: TextInputType.emailAddress,
                               autocorrect: false,
                               textCapitalization: TextCapitalization.none,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.trim().isEmpty ||
+                                    !value.contains('@')) {
+                                  return 'Please enter a valid email address.';
+                                }
+                                return null;
+                              },
                             ),
                             TextFormField(
                               decoration: InputDecoration(
@@ -63,13 +71,23 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
 
                              ElevatedButton(
-                               onPressed: () {},
-                               child: const Text('Signup'),
+                               style: ElevatedButton.styleFrom(
+                                 backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                               ),
+                               onPressed: () {
+
+                               },
+                               child:  Text(_isLogin ? 'Login' : 'Signup'),
+
                              ),
                               
                               TextButton(
                                   onPressed: () {
                                     //for switching modes we need setstate
+                                    setState(() {
+                                      // _isLogin = _isLogin ? false : true;
+                                      _isLogin = !_isLogin;
+                                    });
                                   },
                                   child: Text(_isLogin? 'Create an account' : 'I already have an account'),
                               ),
