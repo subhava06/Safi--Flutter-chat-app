@@ -23,7 +23,13 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 63, 17, 177)),
         ),
-        home: const AuthScreen(),
+        home:  // here we decide, which screen to display when we have auth token and when not
+         StreamBuilder(
+             stream: stream,
+             builder: (ctx, snapshot) {
+
+             }
+         ),
     );
   }
 }
