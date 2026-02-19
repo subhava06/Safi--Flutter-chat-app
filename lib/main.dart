@@ -1,4 +1,6 @@
 import 'package:chap_app/screens/auth.dart';
+import 'package:chap_app/screens/chat.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -25,9 +27,15 @@ class App extends StatelessWidget {
         ),
         home:  // here we decide, which screen to display when we have auth token and when not
          StreamBuilder(
-             stream: stream,
-             builder: (ctx, snapshot) {
+             stream: FirebaseAuth.instance.authStateChanges(),
+             builder: (ctx, snapshot) { //snapshot is a user data package
 
+               if(snapshot.hasData) {
+                 return const ChatScreen();
+               }
+               else {
+                 return const AuthScreen();
+               }
              }
          ),
     );
